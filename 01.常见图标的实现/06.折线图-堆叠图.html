@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      var xDataArr = [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月",
+      ]
+      var yDataArr = [500, 408, 400, 500, 634, 654, 545, 665, 634, 556, 732, 754]
+      var yDataArr2 = [540, 308, 500, 200, 434, 564, 505, 385, 504, 359, 712, 603]
+
+      var option = {
+        xAxis: {
+          type: "category",
+          data: xDataArr,
+          //   边界间隙  默认为true
+          boundaryGap: false,
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "销量",
+            type: "line",
+            data: yDataArr,
+            // 堆叠图通过stack设置的,将自定义属性设置成相同的
+
+            stack: "all",
+
+            // 平滑
+            smooth: true,
+            //填充
+            areaStyle: {
+              color: "pink",
+            },
+          },
+          {
+            name: "销量2",
+            type: "line",
+            data: yDataArr2,
+            // 堆叠图通过stack设置的,将自定义属性设置成相同的
+            // 第二个图表基于第一个图表之上
+
+            stack: "all",
+            // 平滑
+            smooth: true,
+            //填充
+            areaStyle: {
+              color: "red",
+            },
+          },
+        ],
+      }
+
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>

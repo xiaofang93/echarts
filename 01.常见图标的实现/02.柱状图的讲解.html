@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 步骤1:引入echarts.min.js文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <!-- 步骤2:准备一个呈现图表的盒子 -->
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      // 步骤3:初始化echarts实例对象
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      //   步骤4:准备配置项
+      var option = {
+        title: {
+          text: "成绩", // 图表的标题
+          link: "http://www.baidu.com", //标题增加链接效果
+        },
+        xAxis: {
+          type: "category", //类目轴
+          data: ["小明", "小红", "小王", "老王", "张三"],
+        },
+        yAxis: {
+          type: "value", //value:代表是数值轴 数值轴不需要配置data项
+        },
+        series: [
+          {
+            name: "语文",
+            type: "bar", //type决定图标类型,bar:柱状图
+            data: [70, 92, 87, 68, 88],
+            // 标记:最大值,最小值
+            markPoint: {
+              data: [
+                {
+                  type: "max",
+                  name: "最大值",
+                },
+                {
+                  type: "min",
+                  name: "最小值",
+                },
+              ],
+            },
+
+            // 标记:平均值
+            markLine: {
+              data: [
+                {
+                  type: "average",
+                  name: "平均值",
+                },
+              ],
+            },
+            //用于说明图形的一些数据信息，比如值，名称等
+            label: {
+              show: true, //控制开关
+              position: "top", //在顶部显示
+            },
+            // 控制柱状图的显示宽度
+            barWidth: "40%",
+          },
+        ],
+      }
+
+      // 步骤5:将配置项设置给echarts实例对象
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>

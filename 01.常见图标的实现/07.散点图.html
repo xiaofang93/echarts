@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      var data = [
+        { height: 177, weight: 70 },
+        { height: 157, weight: 60 },
+        { height: 170, weight: 62 },
+        { height: 165, weight: 55 },
+        { height: 177, weight: 69 },
+        { height: 180, weight: 70 },
+        { height: 161, weight: 52 },
+        { height: 171, weight: 63 },
+        { height: 172, weight: 66 },
+        { height: 173, weight: 65 },
+        { height: 172, weight: 60 },
+        { height: 180, weight: 70 },
+        { height: 159, weight: 58 },
+        { height: 162, weight: 57 },
+        { height: 157, weight: 49 },
+        { height: 162, weight: 61 },
+        { height: 170, weight: 66 },
+        { height: 177, weight: 56 },
+        { height: 177, weight: 54 },
+        { height: 176, weight: 63 },
+        { height: 182, weight: 75 },
+        { height: 184, weight: 75 },
+        { height: 180, weight: 74 },
+        { height: 159, weight: 70 },
+        { height: 162, weight: 48 },
+        { height: 157, weight: 46 },
+        { height: 162, weight: 63 },
+        { height: 170, weight: 82 },
+        { height: 177, weight: 70 },
+        { height: 177, weight: 68 },
+        { height: 176, weight: 62 },
+        { height: 179, weight: 81 },
+        { height: 154, weight: 60 },
+        { height: 160, weight: 48 },
+        { height: 159, weight: 46 },
+        { height: 158, weight: 63 },
+        { height: 172, weight: 85 },
+        { height: 174, weight: 53 },
+        { height: 176, weight: 58 },
+        { height: 174, weight: 72 },
+        { height: 150, weight: 49 },
+        { height: 157, weight: 72 },
+        { height: 160, weight: 55 },
+        { height: 158, weight: 52 },
+        { height: 162, weight: 47 },
+        { height: 155, weight: 42 },
+        { height: 185, weight: 82 },
+        { height: 183, weight: 77 },
+        { height: 188, weight: 84 },
+      ]
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      // 将获取到的数组转化为 散点图可以识别的二维数组
+      var axisData = []
+      for (let i = 0; i < data.length; i++) {
+        let height = data[i].height
+        let weight = data[i].weight
+        let newArr = [height, weight]
+        axisData.push(newArr)
+      }
+      // 散点图的配置项 x y 轴的type都是设置成value, 二维数组传给series的data即可
+      var option = {
+        xAxis: {
+          type: "value",
+          // 起始值摆脱0值比例
+          scale: true,
+        },
+        yAxis: {
+          type: "value",
+          // 起始值摆脱0值比例
+          scale: true,
+        },
+        series: [
+          {
+            // type: "scatter", //常规散点图
+            // 涟漪散点图
+            type: "effectScatter",
+            // 控制涟漪散点图的时机, render:立即 emphasis:鼠标经过
+            showEffectOn: "emphasis",
+            // 控制涟漪散点图的动画幅度
+            rippleEffect: {
+              scale: 10,
+            },
+
+            data: axisData,
+            // symbolSize可以设值散点的大小,可以为固定大小或者用函数形式设置每个散点大小
+            // symbolSize: 20,
+            symbolSize: function (arg) {
+              // arg表示每个数据的对象数组
+              // console.log(arg)
+              let height = arg[0] / 100
+              let weight = arg[1]
+              // bmi=体重kg/(身高m*身高m) 大于28 就代表肥胖
+              let bmi = weight / (height * height)
+              if (bmi > 28) {
+                return 10
+              }
+              return 5
+            },
+            // itemStyle可以设值散点的颜色,可以为固定大小或者用函数形式设置每个散点颜色
+            itemStyle: {
+              // color: 'red',
+
+              color: function (arg) {
+                console.log(arg)
+                let height = arg.data[0] / 100
+                let weight = arg.data[1]
+                // bmi=体重kg/(身高m*身高m) 大于28 就代表肥胖
+                let bmi = weight / (height * height)
+                if (bmi > 28) {
+                  return "red"
+                }
+                return "green"
+              },
+            },
+          },
+        ],
+      }
+
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>

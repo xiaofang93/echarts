@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      var pieData = [{ 京东: 22333 }, { 淘宝: 12383 }, { 拼多多: 8323 }, { 闲鱼: 13672 }]
+      // 将pieData 数据转化为[{name:'京东',value:22333},{name:'淘宝',value:12383 }...] 的形式
+      var newArr = []
+      // for (let i = 0; i < pieData.length; i++) {
+      //   let obj = pieData[i]
+      //   console.log(obj)
+      //   let nameArr = []
+      //   let valueArr = []
+      //   for (let ii in obj) {
+      //     nameArr.push(ii)
+      //     valueArr.push(obj[ii])
+
+      //     let name = nameArr.toString()
+      //     let value = valueArr.toString()
+
+      //     let arr = { name, value }
+      //     newArr.push(arr)
+      //   }
+      // }
+      console.log(newArr)
+
+      const res = pieData.map((item) => {
+        const [name, value] = Object.entries(item)[0]
+        return { name, value }
+      })
+      console.log(res)
+
+      var option = {
+        series: [
+          {
+            type: "pie",
+            data: res,
+
+            // 饼图文字的显示
+            label: {
+              show: true, //显示文字
+              // formatter 决定显示的内容 可以为字符串或者函数从形式
+              // formatter:'你好'
+              formatter: function (arg) {
+                console.log(arg)
+                // \n表示换行
+                return arg.data.name + ":" + arg.data.value + "元\n" + arg.percent + "%"
+              },
+            },
+
+            // radius: 100, //饼图的半径
+            // radius:'20%'//百分比参照容器宽和高度较小的值的一半来进行百分比设置
+            // radius: ["50%", "75%"], 圆环效果, 第一个代表内圆半径 第二个外圆半径
+            roseType: "radius", //南丁格尔图 饼图每个区域的半径是不同的
+
+            // 选中效果
+            // selectedMode:'single' //选中效果(单选),能够将选中的区域偏移园点一段距离
+            selectedMode: "multiple",//选中效果(多选)
+            selectedOffset: 30, //偏移圆点距离
+          },
+        ],
+      }
+
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      var option = {
+        // legend:图例,用于筛选系列,需要和series配合使用
+        // legend中的data是一个数组
+        // legend中的data的值需要和series数组中某组数据的name值一致
+        legend: {
+          data: ["语文", "数学"],
+        },
+        xAxis: {
+          type: "category",
+          data: ["小明", "小红", "小王"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "语文",
+            type: "bar",
+            data: [70, 92, 87],
+          },
+          {
+            name: "数学",
+            type: "bar",
+            data: [80, 99, 75],
+          },
+        ],
+      }
+
+      // 步骤5:将配置项设置给echarts实例对象
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>

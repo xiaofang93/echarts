@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      var option = {
+        dataZoom: [
+          {
+            type: "slider", //表示滑块的方式缩放
+            // type:'inside'//表示鼠标滚轮的方式缩放
+
+            xAxisIndex: 0, //表示设置的是x轴缩放
+          },
+          {
+            type: "slider", //表示滑块的方式缩放
+
+            yAxisIndex: 0, //表示设置的是y轴缩放
+
+            //表示y轴默认区域缩放 0% - 50%
+            start: 0,
+            end: 50,
+          },
+        ],
+
+        xAxis: {
+          type: "category",
+          data: ["小明", "小红", "小王"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "语文",
+            type: "bar",
+            data: [70, 92, 87],
+          },
+        ],
+      }
+
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>

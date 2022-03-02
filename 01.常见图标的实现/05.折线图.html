@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      var xDataArr = [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月",
+      ]
+      var yDataArr = [3000, 2080, 4000, 5000, 6344, 6543, 5456, 6653, 6343, 5564, 7321, 7543]
+      var option = {
+        xAxis: {
+          type: "category",
+          data: xDataArr,
+          //   边界间隙  默认为true
+          boundaryGap: false,
+        },
+        yAxis: {
+          type: "value",
+        // 缩放, 为true表示数值脱离0值比例 适合数据相差不大时使用
+          scale:true
+        },
+        series: [
+          {
+            name: "销量",
+            type: "line",
+            data: yDataArr,
+
+            // 标记最大值 最小值
+            markPoint: {
+              data: [
+                {
+                  type: "max",
+                  name: "最大值",
+                },
+                {
+                  type: "min",
+                  name: "最小值",
+                },
+              ],
+            },
+
+            // 标记:平均值
+            markLine: {
+              data: [
+                {
+                  type: "average",
+                  name: "平均值",
+                },
+              ],
+            },
+
+            // markArea:标注区间
+            markArea: {
+              data: [
+                // 标注出 1-2月 7-8月
+                [{ xAxis: "1月" }, { xAxis: "2月" }],
+                [{ xAxis: "7月" }, { xAxis: "8月" }],
+              ],
+            },
+            // smooth:表示平滑的意思,默认为false
+            smooth: true,
+            // 控制线条的样式
+            lineStyle: {
+              color: "red",
+              type: "dashed", //dotted solid
+            },
+            //areaStyle用于线条和x轴之间的填充,可以在里面修改填充颜色
+            areaStyle: {
+              color: "pink",
+            },
+          },
+        ],
+      }
+
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>

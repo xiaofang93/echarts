@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      var option = {
+        title: {
+          text: "成绩展示",
+          textStyle: {
+            color: "red",
+          },
+          // 标题边框: 宽度 颜色 圆角
+          borderWidth: 5,
+          borderColor: "blue",
+          borderRadius: 5,
+          // 边框的位置 通常有 left top right bottom
+          left: 100,
+          top: 10,
+        },
+
+        // tooltip:提示框组件,用于配置鼠标滑过或点击图表时的显示框
+        tooltip: {
+          // 触发类型:trigger  item表示鼠标进入图标内部显示, axis表示鼠标进入图标轴内显示
+          trigger: "item",
+
+          // 触发时机:triggerOn
+          // 默认为 mouseover 鼠标经过时触发  click: 点击触发
+          triggerOn: "click",
+
+          // formatter:标签内容格式器，支持字符串模板和回调函数两种形式.用此属性后trigger将失效
+          // formatter: `{b}的成绩是{c}`, 用的模板字符串
+          formatter: function (arg) {
+            console.log(arg)
+            return arg.name + "的分数是:" + arg.data
+          },
+        },
+
+        // toolbox:ECharts提供的工具栏
+        toolbox: {
+          feature: {
+            saveAsImage: {}, //导出图片
+            dataView: {}, //数据视图
+            restore: {}, //重置
+            dataZoom: {}, //区域缩放
+            // 动态图标类型的切换
+            magicType: {
+              type: ["bar", "line"],
+            },
+          },
+        },
+
+        xAxis: {
+          type: "category",
+          data: ["小明", "小红", "小王", "老王", "张三"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "语文",
+            type: "bar",
+            data: [70, 92, 87, 68, 88],
+          },
+        ],
+      }
+
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>

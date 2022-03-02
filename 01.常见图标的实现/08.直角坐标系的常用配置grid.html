@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+
+    <script>
+      var mCharts = echarts.init(document.querySelector("div"))
+
+      var option = {
+        // grid控制图标的大小以及相关的位置
+        grid: {
+          show: true, //显示grid
+          borderWidth: 10, //边框宽度
+          borderColor: "red", //边框颜色
+          // left top 设置的值类似于定位
+          left: 20,
+          top: 20,
+          // width height 设置grid的大小 图表也会跟着变
+          width: 500,
+          height: 300,
+        },
+        xAxis: {
+          type: "category",
+          data: ["小明", "小红", "小王"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "语文",
+            type: "bar",
+            data: [70, 92, 87],
+          },
+        ],
+      }
+
+      mCharts.setOption(option)
+    </script>
+  </body>
+</html>
